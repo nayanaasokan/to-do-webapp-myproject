@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!-- {% load static %} -->
+<html lang="en">
+<head>
+    <style>
+        table{
+            margin-top:10px;
+            border:2px solid black;
+            border-collapse: collapse;
+            border-radius: 30px;
+            width:900px;
+            border-radius:35px;
+            overflow: hidden;
+            box-shadow: 3px 4px 15px black;
+        }
+        body{
+            background-color: #FFDEE9;
+            background-image: linear-gradient(0deg, #d9b5e8 0%, #eff3f7 100%);
+            /* background-image: url("{% static 'images/todo2.jpg' %}"); */
+            background-repeat: no-repeat;
+            background-size: 100% 1000px;
+
+        }
+        td{background-color:whitesmoke}
+        th{color:white;background-color: black;}
+        tr{height:60px;text-align: center;}
+        
+        .btn{height:40px}
+        /* #bt{background-color:red;color: white;width:130px;margin-left:680px;box-shadow: 3px 4px 6px black;margin-top:20px;} */
+        /* #th{background-color:rgb(182, 168, 195);margin-left:300px;margin-top:30px;box-shadow: 3px 4px 6px black;width:130px} */
+        /* #lu{background-color: burlywood;
+            margin-left: 300px;
+            width:210px;
+            text-align:left;
+            padding-left: 20px;
+            border-radius:35px;
+            box-shadow: 3px 4px 6px black;} */
+        #i{background-color: lightpink;}
+        #o{font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;margin-top:30px;text-decoration:underline;}
+        .navbar{background-color:rgb(182, 168, 195);}
+
+        #ee:hover{font-size: larger;}
+        /* #k{color:rgb(240, 85, 232)} */
+        #t{color:#821fade1}
+
+        
+        
+    </style>
+    <script src="https://kit.fontawesome.com/fbafa9706b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid" style="height:40px">
+          <h3 class="navbar-brand fs-3 px-4" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"><b>ToDo</b></h3>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{% url 'task-list' %}" id="ee"><b>Home</b></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'task-add' %}" id="ee"><b>Add task</b></a>
+              </li>
+             
+            </ul>
+            <div class="d-flex">
+              <a href="{% url 'signout' %}" class="btn btn-light btn-outline-secondary">Log out</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+
+    {% if messages %}
+            {% for m in messages %}
+                <div class="alert alert-success alert-dismissible fade show fs-6" role="alert">
+                    <strong>{{m}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+            {% endfor %}
+        {% endif %}
+    <h1 class="d-flex justify-content-center" id="o">welcome {{request.user}}</h1><br>
+    <h1 class="d-flex justify-content-center" id="t"><b><i class="fa-solid fa-check"></i> ToDo <font color="black" size="6px">list</font></b></h1>
+    <!-- <div id="lu">
+        {% for i in status_count %}
+        Total task : {{i.status}} {{i.number}}<br>
+        {%endfor%}
+    </div> -->
+    <div class="container d-flex justify-content-center gap-5 mt-4">
+        {% for i in status_count %}
+        {% if i.status == "completed" %}
+        <div class="alert alert-success border border-1 border-secondary fw-bolder fs-5">
+            Total task {{i.status}}:{{i.number}}
+        </div>
+        {%else%}
+        <div class="alert alert-danger border border-1 border-secondary fw-bolder fs-5">
+            Total task {{i.status}}:{{i.number}}
+        </div>
+        {%endif%}
+        {%endfor%}
+    </div>
+    <!-- <a href="{% url 'task-add' %}" class="btn rounded-pill" id="th">Add task</a> -->
+    <center>
+   <table>
+    <tr>
+    <th>title</th>
+    <th>date</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    </tr>
+    {%for t in data%}
+    <tr>
+        <td>{{t.title}}</td>
+        <td>{{t.date}}</td>
+        <td><a href="{% url 'task-detail' t.id %}" class="btn rounded-pill" id="i">View details</a></td>
+        <td><a href="{% url 'task-delete' t.id %}" class="btn rounded-pill" id="i">Remove</a></td>
+        <td><a href="{% url 'task-update' t.id %}" class="btn rounded-pill" id="i">Edit</a></td>
+
+    </tr>
+    {%endfor%}
+   </table>
+</center>
+<!-- <a href="{% url 'signout' %}" class="btn rounded-pill" id="bt">Log out</a> -->
+
+
+       
+    
+</body>
+</html>

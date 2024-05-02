@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .navbar{background-color:rgb(182, 168, 195);}
+        body{
+            background-color: #FFDEE9;
+            background-image: linear-gradient(0deg, #c4e5bd 0%, #ecedea 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 750px;
+        }
+        #ee:hover{font-size: larger;}
+        form{margin-left:80px;margin-top:110px;background-color:rgb(203, 228, 192);padding:30px;border-radius: 40px;box-shadow: 5px 5px 20px black;}
+        #h{text-align: center;font-weight:bold;}
+        .f{box-shadow: 5px 5px 15px black;}
+        #uy{border-radius:40px;background-color: rgb(215, 69, 69);color:white;width:200px;height:50px;margin-left:250px;font-size:25px;box-shadow: 5px 5px 15px black;}
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid" style="height:40px">
+          <h3 class="navbar-brand fs-3 px-4" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"><b>ToDo</b></h3>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{% url 'task-list' %}" id="ee"><b>Home</b></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'task-add' %}" id="ee"><b>Add task</b></a>
+              </li>
+             
+            </ul>
+            <div class="d-flex">
+              <a href="{% url 'signout' %}" class="btn btn-light btn-outline-secondary">Log out</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div id="e">
+                <form action="" method="post">{% csrf_token %}
+                    <u><h1 id="h">Add task</h1></u>
+                    {%for f in form%}
+                    <div class="mb-4 fs-4">
+                        <b>{{f.label_tag}}</b>
+                        <div class="f">{{f}}</div>
+                    </div>
+                    {%endfor%}
+                    <button type="submit" id="uy">add</button>
+                </form>
+            </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    
+</body>
+</html>
